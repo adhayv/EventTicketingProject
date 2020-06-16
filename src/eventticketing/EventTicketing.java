@@ -8,8 +8,16 @@ Once searched the user can book an event, this creates a txt file which is the b
 package eventticketing;
 
 import java.io.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 
 public class EventTicketing {
 
@@ -48,8 +56,23 @@ public class EventTicketing {
 //        return filterList;
 //    }
     public static void main(String[] args) {
-
+        
+        //DBmanager dbmanager = new DBmanager;
+        DBManager dbManager;
+        dbManager =  new DBManager();
+        ResultSet rs = dbManager.myQuery("select * from EVENTSTABLE");
+        try{
+            while (rs.next()) {
+            String name = rs.getString("Name");
+            System.out.println(name);
+            }
+        }catch(SQLException ex) {
+            System.out.println(ex);
+        }
+        
         EventGUI.runGUI();
+        
+
 //        /*
 //        The while loops keeps the program running until the user wants to end it.
 //        The first block of code in the while loop reads the event file and prints

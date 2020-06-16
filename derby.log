@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Tue Jun 16 12:45:06 NZST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-ba96-380a-00000eb12510 
-on database directory D:\University\AUT\COMP603 (Program Design and Construction and Software Construction)\Project\PDC Project\EventTicketingProject\EvenbtsDB with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
+Wed Jun 17 01:47:20 NZST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-bd62-5fb0-00000eb12a58 
+on database directory D:\University\AUT\COMP603 (Program Design and Construction and Software Construction)\Project\PDC Project\EventTicketingProject\EventsDB with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
 Loaded from file:/D:/University/AUT/COMP603%20(Program%20Design%20and%20Construction%20and%20Software%20Construction)/Project/PDC%20Project/EventTicketingProject/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_241-b07

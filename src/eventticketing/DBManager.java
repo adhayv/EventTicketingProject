@@ -22,7 +22,7 @@ public final class DBManager {
     private static final String USER_NAME = "eventdb";
     private static final String PASSWORD = "pdccomp603";
 
-    private static final String URL = "jdbc:derby:EvenbtsDB;create=true";
+    private static final String URL = "jdbc:derby:EventsDB;create=true";
 
     Connection conn;
 
@@ -30,11 +30,11 @@ public final class DBManager {
         establishConnection();
     }
 
-//    public static void main(String[] args){
-//        DBManager dbManager = new DBManager();
-//        System.out.println(dbManager.getConnection());
-//        
-//    }
+    public static void makeConnection(){
+       DBManager dbManager = new DBManager();
+//     System.out.println(dbManager.getConnection());
+        
+    }
     public Connection getConnection() {
         return this.conn;
     }
