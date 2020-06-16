@@ -9,29 +9,25 @@ package eventticketing;
  *
  * @author Adhay
  */
-enum Setting{
-        FORMAL,
-        CASUAL
-    }
-
 public class FoodEvent extends Event {
+
     String cuisine;
-    Setting getup;
-    
-    public FoodEvent(){
-        
+
+    public FoodEvent() {
+
     }
 
-    public FoodEvent(String name, String date, String time, String location, String description, String cuisine, Setting getup){
+    public FoodEvent(String name, String date, String time, String location, String description, String cuisine) {
         this.name = name;
         this.date = date;
         this.time = time;
         this.location = location;
         this.description = description;
-        this.getup = getup;
+
         this.cuisine = cuisine;
     }
+
     public String toString() {
-        return name + ", " + date + ", " + time + ", " + getup + ", " + cuisine + ", ";
+        return name + ", " + date + ", " + time + ", " + cuisine + ", ";
     }
 }

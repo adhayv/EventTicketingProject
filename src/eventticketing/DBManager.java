@@ -12,52 +12,55 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Adhay
  */
 public final class DBManager {
+
     private static final String USER_NAME = "eventdb";
     private static final String PASSWORD = "pdccomp603";
-    
+
     private static final String URL = "jdbc:derby:EvenbtsDB;create=true";
-    
+
     Connection conn;
-    
-    public DBManager(){
+
+    public DBManager() {
         establishConnection();
     }
-    
-    public static void main(String[] args){
-        DBManager dbManager = new DBManager();
-        System.out.println(dbManager.getConnection());
-        
-    }
-    public Connection getConnection(){
+
+//    public static void main(String[] args){
+//        DBManager dbManager = new DBManager();
+//        System.out.println(dbManager.getConnection());
+//        
+//    }
+    public Connection getConnection() {
         return this.conn;
     }
-    
-    public void establishConnection(){
-        if (this.conn == null){
-            try{
+
+    public void establishConnection() {
+        if (this.conn == null) {
+            try {
                 conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-                System.out.println(URL+ " connected");
-                
-            } catch (SQLException ex){
+                System.out.println(URL + " connected");
+
+            } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
         }
     }
-    
-    public void closeConnections(){
-        if(conn != null){
-            try{
+
+    public void closeConnections() {
+        if (conn != null) {
+            try {
                 conn.close();
-            } catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println(ex);
             }
-        }        
+        }
     }
+
     public ResultSet myQuery(String sql) {
 
         Connection connection = this.conn;
@@ -88,5 +91,5 @@ public final class DBManager {
             e.printStackTrace();
         }
     }
-    
+
 }
