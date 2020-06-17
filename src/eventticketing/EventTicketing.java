@@ -7,6 +7,12 @@ Once searched the user can book an event, this creates a txt file which is the b
  */
 package eventticketing;
 
+import eventticketing.Models.CharityEvent;
+import eventticketing.Models.Event;
+import eventticketing.Models.FoodEvent;
+import eventticketing.Models.ShowEvent;
+import eventticketing.Models.MusicEvent;
+import eventticketing.GUI.EventGUI;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,8 +22,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
+import java.sql.Time;
+import java.sql.Date;
+import java.util.*;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class EventTicketing {
 
@@ -55,24 +65,59 @@ public class EventTicketing {
 //        }
 //        return filterList;
 //    }
+    
+    
     public static void main(String[] args) {
-        
-        //DBmanager dbmanager = new DBmanager;
-        DBManager dbManager;
-        dbManager =  new DBManager();
+
+        DBManager dbManager = new DBManager();
+        EventGUI eventGui = new EventGUI();
+        eventGui.setVisible(true);
+
+        ArrayList<Event> eventList = new ArrayList<Event>();
         ResultSet rs = dbManager.myQuery("select * from EVENTSTABLE");
-        try{
+        String type = "";
+        try {
             while (rs.next()) {
-            String name = rs.getString("Name");
-            System.out.println(name);
+                type = rs.getString("Type");
+                String name = rs.getString("Name");
+                Date date = rs.getDate("Date");
+                Time time = rs.getTime("Time");
+                String location = rs.getString("Location");
+                String description = rs.getString("Description");
+                switch (type) {
+                    case "Music":
+                        eventList.add(new MusicEvent(name, date, time, location, description));
+                        break;
+                    case "Show":
+                        eventList.add(new ShowEvent(name, date, time, location, description));
+                        break;
+                    case "Food":
+                        eventList.add(new FoodEvent(name, date, time, location, description));
+                        break;
+                    case "Charity":
+                        eventList.add(new CharityEvent(name, date, time, location, description));
+                        break;
+                }
             }
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex);
         }
+
+        DefaultTableModel tableModel = (DefaultTableModel) eventGui.getEventTable().getModel();
+        for (Event event : eventList) {
+            Object[] row = {event.getName(), event.getDate(), event.getTime(), event.getLocation()};
+            tableModel.addRow(row);
+            //eventtable.setModel(tableModel);
+            //tableModel.fireTableDataChanged();
+        }
         
-        EventGUI.runGUI();
+        
+        
+        
         
 
+//        EventGUI.getInstance().getEventListPanel().add(eventtable);
+    //JTable table = eventGui.getEventListPanel();
 //        /*
 //        The while loops keeps the program running until the user wants to end it.
 //        The first block of code in the while loop reads the event file and prints
@@ -263,6 +308,6 @@ public class EventTicketing {
 //            }
 //
 //        }
-    }
+}
 
 }
