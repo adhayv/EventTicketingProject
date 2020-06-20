@@ -38,13 +38,13 @@ public class ShowEvent extends Event {
     
     
 
-    public ShowEvent(String name, Date date, Time time, String location, String description, String artist, String genre){
+    public ShowEvent(String name, Date date, Time time, String location, String description, String performer, String genre){
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
-        this.performer = artist;
+        this.performer = performer;
         this.genre = genre;
     }
     
@@ -55,8 +55,10 @@ public class ShowEvent extends Event {
         super.setLocation(location);
         super.setDescription(description);
     }
-//    public String toString() {
-//        return name + ", " + date + ", " + time + performer + ", " + genre + ", ";
-//    }
+    public String toString() {
+        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
+                + "\nLocation: " + getLocation() + "\nPerformer: " + performer + "\nGenre: " + genre + "\nDescirption: " + getDescription());
+        return details;
+    }
     
 }

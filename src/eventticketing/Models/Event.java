@@ -6,12 +6,12 @@ package eventticketing.Models;
 import java.sql.Date;
 import java.sql.Time;
 
-enum Option {
-    NAME,
-    DATE,
-    TIME,
-    TYPE
-}
+//enum Option {
+//    NAME,
+//    DATE,
+//    TIME,
+//    TYPE
+//}
 
 public abstract class Event {
 
@@ -20,6 +20,7 @@ public abstract class Event {
     private Time time;
     private String location;
     private String description;
+    private String type;
 
     public String getName() {
         return name;
@@ -27,6 +28,10 @@ public abstract class Event {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Time getTime() {
@@ -51,6 +56,10 @@ public abstract class Event {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setLocation(String location) {

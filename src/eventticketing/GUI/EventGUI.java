@@ -5,8 +5,10 @@
  */
 package eventticketing.GUI;
 
+import eventticketing.Models.Event;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -19,14 +21,16 @@ public class EventGUI extends javax.swing.JFrame {
     /**
      * Creates new form EventGUI
      */
+    private static ArrayList<Event> eventList = new ArrayList<Event>();
     CardLayout cardLayout;
     DefaultTableModel eTable;
-    
+
     public EventGUI() {
         initComponents();
         cardLayout = (CardLayout) (cardPanel.getLayout());
     }
 
+    //public DetailEventFrame detailFrame;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,8 +47,6 @@ public class EventGUI extends javax.swing.JFrame {
         bookingsButton = new javax.swing.JButton();
         cardPanel = new javax.swing.JPanel();
         eventsPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         filterCombo = new javax.swing.JComboBox<>();
@@ -53,6 +55,7 @@ public class EventGUI extends javax.swing.JFrame {
         filterTable = new javax.swing.JTextPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         eventTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
         favouritePanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -116,32 +119,18 @@ public class EventGUI extends javax.swing.JFrame {
         cardPanel.setBackground(new java.awt.Color(255, 255, 255));
         cardPanel.setLayout(new java.awt.CardLayout());
 
-        jButton1.setText("Book event");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Event Details");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jButton3.setText("Bookmark Event");
 
         jLabel1.setText("Search");
 
-        filterCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", "Name", "Location", "Date" }));
+        filterCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", "Music", "Show", "Food", "Charity" }));
         filterCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filterComboActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Filter");
+        jLabel2.setText("Filter by Type");
 
         filterTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -166,56 +155,62 @@ public class EventGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(eventTable);
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("Click on an event for detials and to book");
 
         javax.swing.GroupLayout eventsPanelLayout = new javax.swing.GroupLayout(eventsPanel);
         eventsPanel.setLayout(eventsPanelLayout);
         eventsPanelLayout.setHorizontalGroup(
             eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(eventsPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(eventsPanelLayout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(eventsPanelLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton1))))
-                .addGap(34, 34, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eventsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(69, 69, 69))
+            .addGroup(eventsPanelLayout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(143, 143, 143))
         );
         eventsPanelLayout.setVerticalGroup(
             eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(eventsPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(eventsPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1, 1, 1))
-                    .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(filterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4))
-                .addGap(53, 53, 53)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(eventsPanelLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eventsPanelLayout.createSequentialGroup()
+                        .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(eventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(filterCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(29, 29, 29))
         );
 
         cardPanel.add(eventsPanel, "card2");
@@ -256,7 +251,7 @@ public class EventGUI extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         favouritePanelLayout.setVerticalGroup(
             favouritePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +296,7 @@ public class EventGUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100)
                 .addComponent(jButton7)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         bookingsPanelLayout.setVerticalGroup(
             bookingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,20 +331,24 @@ public class EventGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void setEventList(ArrayList<eventticketing.Models.Event> elist) {
+        eventList = elist;
+    }
+
     public void switchPanels(JPanel panel) {
         cardPanel.removeAll();
         cardPanel.add(panel);
         cardPanel.repaint();
         cardPanel.revalidate();
     }
-    public void filter(String filtering) {
-        eTable = (DefaultTableModel) eventTable.getModel(); 
+
+    public void filterSearch(String filtering) {
+        eTable = (DefaultTableModel) eventTable.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<DefaultTableModel>(eTable);
         eventTable.setRowSorter(trs);
-        
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" +filtering));
-        }
-    
+
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + filtering));
+    }
 
     public JTable getEventTable() {
         return eventTable;
@@ -367,17 +366,9 @@ public class EventGUI extends javax.swing.JFrame {
         switchPanels(bookingsPanel);
     }//GEN-LAST:event_bookingsButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void filterComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboActionPerformed
         // TODO add your handling code here:
@@ -385,9 +376,33 @@ public class EventGUI extends javax.swing.JFrame {
 
     private void filterTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterTableKeyReleased
         String filtering = filterTable.getText();
-        filter(filtering);
+        filterSearch(filtering);
     }//GEN-LAST:event_filterTableKeyReleased
 
+    private void eventTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventTableMouseClicked
+        int row = eventTable.getSelectedRow();
+        String name = eventTable.getValueAt(row, 0).toString();
+        Event details = getEventByName(name);
+        DetailEventFrame detailFrame = new DetailEventFrame();
+        detailFrame.writeDetails(details);
+        detailFrame.setVisible(true);
+//        String date = eventTable.getValueAt(row, 1).toString();
+//        String time = eventTable.getValueAt(row, 2).toString();
+//        String location = eventTable.getValueAt(row, 3).toString();
+        //DetailEventFrame detailFrame = new DetailEventFrame(name);
+        //detailFrame.setVisible(true);
+        
+    }//GEN-LAST:event_eventTableMouseClicked
+    
+    private Event getEventByName(String name){
+        for (Event event: eventList){
+            if (name == event.getName()){
+                return event;                
+            }
+        }
+        return null;
+    }
+    
 //    public static EventGUI getInstance() {
 ////        if(eventGUI == null){
 ////            eventGUI = new EventGUI();
@@ -447,8 +462,6 @@ public class EventGUI extends javax.swing.JFrame {
     private javax.swing.JButton favouritesButton;
     private javax.swing.JComboBox<String> filterCombo;
     private javax.swing.JTextPane filterTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -456,6 +469,7 @@ public class EventGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

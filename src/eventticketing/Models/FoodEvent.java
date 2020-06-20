@@ -27,6 +27,7 @@ public class FoodEvent extends Event {
     public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
     }
+    
 
     public FoodEvent(String name, Date date, Time time, String location, String description, String cuisine) {
         super.setName(name);
@@ -34,7 +35,6 @@ public class FoodEvent extends Event {
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
-        this.cuisine = cuisine;
     }
 
     
@@ -45,9 +45,12 @@ public class FoodEvent extends Event {
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
+        
     }
 
-//    public String toString() {
-//        return name + ", " + date + ", " + time + ", " + cuisine + ", ";
-//    }
+    public String toString() {
+         String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
+                + "\nLocation: " + getLocation() + "\nCuisine: " + cuisine + "\nDescirption: " + getDescription());
+        return details;
+    }
 }

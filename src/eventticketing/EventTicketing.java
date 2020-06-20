@@ -7,6 +7,7 @@ Once searched the user can book an event, this creates a txt file which is the b
  */
 package eventticketing;
 
+import eventticketing.GUI.DetailEventFrame;
 import eventticketing.Models.CharityEvent;
 import eventticketing.Models.Event;
 import eventticketing.Models.FoodEvent;
@@ -75,10 +76,9 @@ public class EventTicketing {
 
         ArrayList<Event> eventList = new ArrayList<Event>();
         ResultSet rs = dbManager.myQuery("select * from EVENTSTABLE");
-        String type = "";
         try {
             while (rs.next()) {
-                type = rs.getString("Type");
+                String type = rs.getString("Type");
                 String name = rs.getString("Name");
                 Date date = rs.getDate("Date");
                 Time time = rs.getTime("Time");
@@ -86,30 +86,52 @@ public class EventTicketing {
                 String description = rs.getString("Description");
                 switch (type) {
                     case "Music":
-                        eventList.add(new MusicEvent(name, date, time, location, description));
+                        ResultSet rs1 = dbManager.myQuery("select * from MUSICTABLE where Name like '" + name + "'");
+                        rs1.next();
+                        String artist = rs1.getString("Artist");
+                        String musicgenre = rs1.getString("Genre");
+                        eventList.add(new MusicEvent(name, date, time, location, description, artist, musicgenre));
                         break;
                     case "Show":
-                        eventList.add(new ShowEvent(name, date, time, location, description));
+                        ResultSet rs2 = dbManager.myQuery("select * from SHOWTABLE where Name like '" + name + "'");
+                        rs2.next();
+                        String performer = rs2.getString("Performer");
+                        String showgenre = rs2.getString("Genre");
+                        eventList.add(new ShowEvent(name, date, time, location, description, performer, showgenre));
                         break;
                     case "Food":
-                        eventList.add(new FoodEvent(name, date, time, location, description));
+                        ResultSet rs3 = dbManager.myQuery("select * from FOODTABLE where Name like '" + name + "'");
+                        rs3.next();
+                        String cuisine = rs3.getString("Cuisine");
+                        eventList.add(new FoodEvent(name, date, time, location, description, cuisine));
                         break;
                     case "Charity":
-                        eventList.add(new CharityEvent(name, date, time, location, description));
+                        ResultSet rs4 = dbManager.myQuery("select * from CHARITYTABLE where Name like '" + name + "'");
+                        rs4.next();
+                        String organisation = rs4.getString("Organisation");
+                        String cause = rs4.getString("Cause");
+                        eventList.add(new CharityEvent(name, date, time, location, description, organisation, cause));
                         break;
                 }
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Problem: " + ex);
+            ex.printStackTrace();
         }
-
+        System.out.println(eventList);
+        
+        EventGUI.setEventList(eventList);
+        
         DefaultTableModel tableModel = (DefaultTableModel) eventGui.getEventTable().getModel();
         for (Event event : eventList) {
+            System.out.println(event);
             Object[] row = {event.getName(), event.getDate(), event.getTime(), event.getLocation()};
             tableModel.addRow(row);
+            //System.out.println(event.getName());
             //eventtable.setModel(tableModel);
             //tableModel.fireTableDataChanged();
         }
+        
         
         
         
@@ -245,7 +267,7 @@ public class EventTicketing {
 //                filterList = filterEvent(inputOption, inputValue, eventList);
 //                if (filterList.size() > 0) {
 //                    //The searched list is printed.
-//                    System.out.printf("%nEnter corresponding number to filter by type:%n");
+//                    System.out.printf("%nEnter corresponding number to filterSearch by type:%n");
 //                    for (int i = 0; i < filterList.size(); i++) {
 //                        System.out.printf("[%d]" + filterList.get(i) + "%n", i + 1);
 //                    }

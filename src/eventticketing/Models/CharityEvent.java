@@ -53,7 +53,9 @@ public class CharityEvent extends Event {
         super.setLocation(location);
         super.setDescription(description);
     }
-//    public String toString() {
-//        return name + ", " + date + ", " + time + ", " + organisation + ", " + cause + ", ";
-//    }
+    public String toString() {
+         String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
+                + "\nLocation: " + getLocation() + "\nOrganisation: " + organisation + "\nCause: " + cause + "\nDescirption: " + getDescription());
+        return details;
+    }
 }

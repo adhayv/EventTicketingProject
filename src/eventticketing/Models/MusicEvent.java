@@ -12,7 +12,8 @@ import java.sql.Time;
  *
  * @author Adhay
  */
-public class MusicEvent extends Event{
+public class MusicEvent extends Event {
+
     String artist;
     String genre;
 
@@ -32,11 +33,11 @@ public class MusicEvent extends Event{
         return genre;
     }
 
-    public MusicEvent(){
-        
+    public MusicEvent() {
+
     }
 
-    public MusicEvent(String name, Date date, Time time, String location, String description, String artist, String genre){
+    public MusicEvent(String name, Date date, Time time, String location, String description, String artist, String genre) {
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
@@ -45,15 +46,18 @@ public class MusicEvent extends Event{
         this.artist = artist;
         this.genre = genre;
     }
-    
-    public MusicEvent(String name, Date date, Time time, String location, String description){
+
+    public MusicEvent(String name, Date date, Time time, String location, String description) {
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
-    } 
-//    public String toString() {
-//        return name + ", " + date + ", " + time + ", " + artist + ", " + genre + ", ";
-//    }
+    }
+
+    public String toString() {
+        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
+                + "\nLocation: " + getLocation() + "\nArtist: " + artist + "\nGenre: " + genre + "\nDescirption: " + getDescription());
+        return details;
+    }
 }
