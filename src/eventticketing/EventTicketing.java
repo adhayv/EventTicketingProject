@@ -115,7 +115,7 @@ public class EventTicketing {
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Problem: " + ex);
+            System.out.println("Error Main: " + ex);
             ex.printStackTrace();
         }
         //System.out.println(eventList);
