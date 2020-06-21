@@ -56,7 +56,7 @@ public class MusicEvent extends Event {
     }
 
     public String toString() {
-        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
+        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime()
                 + "\nLocation: " + getLocation() + "\nArtist: " + artist + "\nGenre: " + genre + "\nDescirption: " + getDescription());
         return details;
     }

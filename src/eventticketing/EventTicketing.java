@@ -70,7 +70,7 @@ public class EventTicketing {
     
     public static void main(String[] args) {
 
-        DBManager dbManager = new DBManager();
+        DBManager dbManager = DBManager.getInstance();
         EventGUI eventGui = new EventGUI();
         eventGui.setVisible(true);
 
@@ -124,7 +124,7 @@ public class EventTicketing {
         
         DefaultTableModel tableModel = (DefaultTableModel) eventGui.getEventTable().getModel();
         for (Event event : eventList) {
-            System.out.println(event);
+            //System.out.println(event);
             Object[] row = {event.getName(), event.getDate(), event.getTime(), event.getLocation()};
             tableModel.addRow(row);
             //System.out.println(event.getName());

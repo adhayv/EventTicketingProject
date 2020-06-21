@@ -16,18 +16,17 @@ public class FoodEvent extends Event {
 
     String cuisine;
 
-    public FoodEvent() {
-
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
 
     public String getCuisine() {
         return cuisine;
     }
-    
-    public void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
+
+    public FoodEvent() {
+
     }
-    
 
     public FoodEvent(String name, Date date, Time time, String location, String description, String cuisine) {
         super.setName(name);
@@ -35,21 +34,20 @@ public class FoodEvent extends Event {
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
+        this.cuisine = cuisine;
     }
 
-    
-    
-    public FoodEvent(String name, Date date, Time time, String location, String description){
+    public FoodEvent(String name, Date date, Time time, String location, String description) {
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
-        
+
     }
 
     public String toString() {
-         String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
+        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime()
                 + "\nLocation: " + getLocation() + "\nCuisine: " + cuisine + "\nDescirption: " + getDescription());
         return details;
     }

@@ -5,37 +5,19 @@
  */
 package eventticketing.GUI;
 
-import eventticketing.Models.Event;
-import eventticketing.DBOperations;
-import java.util.ArrayList;
-
 /**
  *
  * @author Adhay
  */
-public class DetailEventFrame extends javax.swing.JFrame {
+public class AlreadyBooked extends javax.swing.JFrame {
 
-    Event bookingEvent;
-    
     /**
-     * Creates new form DetailEventFrame
+     * Creates new form AlreadyBooked
      */
-    public DetailEventFrame() {
+    public AlreadyBooked() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
-    
-    
-    public DetailEventFrame(Event event){
-        initComponents();
-        bookingEvent = event;     
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }
-    
-    public void writeDetails(){
-        eventDetailText.setText(bookingEvent.toString());        
-    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,25 +29,16 @@ public class DetailEventFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        eventDetailText = new javax.swing.JTextArea();
-        eventBookButton = new javax.swing.JButton();
+        conformationButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Event details");
+        jLabel1.setText("The Event is already booked");
 
-        eventDetailText.setEditable(false);
-        eventDetailText.setColumns(20);
-        eventDetailText.setLineWrap(true);
-        eventDetailText.setRows(5);
-        eventDetailText.setWrapStyleWord(true);
-        jScrollPane2.setViewportView(eventDetailText);
-
-        eventBookButton.setText("Book Event");
-        eventBookButton.addActionListener(new java.awt.event.ActionListener() {
+        conformationButton.setText("Ok");
+        conformationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eventBookButtonActionPerformed(evt);
+                conformationButtonActionPerformed(evt);
             }
         });
 
@@ -76,35 +49,30 @@ public class DetailEventFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(eventBookButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(79, 79, 79)
+                        .addComponent(conformationButton)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(eventBookButton)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(conformationButton)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void eventBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventBookButtonActionPerformed
-        DBOperations.addToDB(bookingEvent);
-    }//GEN-LAST:event_eventBookButtonActionPerformed
+    private void conformationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conformationButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_conformationButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,29 +91,26 @@ public class DetailEventFrame extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(DetailEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(DetailEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(DetailEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(DetailEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new DetailEventFrame().setVisible(true);
+//                new AlreadyBooked().setVisible(true);
 //            }
 //        });
 //    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton eventBookButton;
-    private javax.swing.JTextArea eventDetailText;
+    private javax.swing.JButton conformationButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

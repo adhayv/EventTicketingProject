@@ -25,8 +25,9 @@ public final class DBManager {
     private static final String URL = "jdbc:derby:EventsDB;create=true";
 
     Connection conn;
-
-    public DBManager() {
+    static DBManager dbmanager;
+    
+    private DBManager() {
         establishConnection();
     }
 
@@ -35,6 +36,14 @@ public final class DBManager {
 //     System.out.println(dbManager.getConnection());
         
     }
+    
+    public static DBManager getInstance(){
+        if(dbmanager == null){
+            dbmanager = new DBManager();
+        }
+        return dbmanager;
+    }
+    
     public Connection getConnection() {
         return this.conn;
     }
