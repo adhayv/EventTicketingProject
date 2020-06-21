@@ -9,12 +9,12 @@ package eventticketing.GUI;
  *
  * @author Adhay
  */
-public class AlreadyBooked extends javax.swing.JFrame {
+public class ThankyouBooking extends javax.swing.JFrame {
 
     /**
-     * Creates new form AlreadyBooked
+     * Creates new form ThankyouBooking
      */
-    public AlreadyBooked() {
+    public ThankyouBooking() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -29,17 +29,17 @@ public class AlreadyBooked extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        conformationButton = new javax.swing.JButton();
+        thankyouEvent = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        jLabel1.setText("The Event is already booked");
+        jLabel1.setText("Event has been booked, Thank You for booking");
 
-        conformationButton.setText("Ok");
-        conformationButton.addActionListener(new java.awt.event.ActionListener() {
+        thankyouEvent.setText("Ok");
+        thankyouEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                conformationButtonActionPerformed(evt);
+                thankyouEventActionPerformed(evt);
             }
         });
 
@@ -50,30 +50,30 @@ public class AlreadyBooked extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(conformationButton)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(153, 153, 153)
+                        .addComponent(thankyouEvent)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(conformationButton)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thankyouEvent)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void conformationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conformationButtonActionPerformed
+    private void thankyouEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thankyouEventActionPerformed
         dispose();
-    }//GEN-LAST:event_conformationButtonActionPerformed
+    }//GEN-LAST:event_thankyouEventActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,26 +92,26 @@ public class AlreadyBooked extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ThankyouBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ThankyouBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ThankyouBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(AlreadyBooked.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(ThankyouBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new AlreadyBooked().setVisible(true);
+//                new ThankyouBooking().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton conformationButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton thankyouEvent;
     // End of variables declaration//GEN-END:variables
 }

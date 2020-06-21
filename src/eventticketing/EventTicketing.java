@@ -118,7 +118,7 @@ public class EventTicketing {
             System.out.println("Problem: " + ex);
             ex.printStackTrace();
         }
-        System.out.println(eventList);
+        //System.out.println(eventList);
         
         EventGUI.setEventList(eventList);
         

@@ -36,6 +36,8 @@ public class DBOperations {
             } else {
                 dbManager.myUpdate("insert into BOOKEDEVENTS (name, date, time, location, description, type) values ('" + name + "' , '"
                         + date + "' , '" + time + "' , '" + location + "' , '" + description + "' , '" + type + "')");
+                ThankyouBooking typopup = new ThankyouBooking();
+                typopup.setVisible(true);
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
@@ -44,6 +46,8 @@ public class DBOperations {
     }
     
 //    public void addToBookedJtable(){
-//        Resultset rs1
+//        DBManager dbManager = DBManager.getInstance();
+//        ResultSet rs = 
+//        
 //    }
 }
