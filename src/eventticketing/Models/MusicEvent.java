@@ -37,12 +37,14 @@ public class MusicEvent extends Event {
 
     }
 
-    public MusicEvent(String name, Date date, Time time, String location, String description, String artist, String genre) {
+    public MusicEvent(int id, String name, Date date, Time time, String location, String description, String type, String artist, String genre) {
+        super.setId(id);
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
+        super.setType(type);
         this.artist = artist;
         this.genre = genre;
     }

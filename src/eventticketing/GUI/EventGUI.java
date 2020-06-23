@@ -1,12 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+This file runs the main GUI. This is where all the main functions of the GUI
+are.
  */
 package eventticketing.GUI;
 
 import eventticketing.Models.Event;
+import eventticketing.DBManager;
+import eventticketing.DBOperations;
 import javax.swing.*;
+import java.sql.*;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +56,8 @@ public class EventGUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         bookingsPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        bookedEventsTable = new javax.swing.JTable();
+        bookedTeventTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,23 +116,18 @@ public class EventGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Date", "Time", "Location"
+                "ID", "Name", "Date", "Time", "Location"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 eventTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(eventTable);
+        if (eventTable.getColumnModel().getColumnCount() > 0) {
+            eventTable.getColumnModel().getColumn(0).setPreferredWidth(5);
+        }
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel3.setText("Click on an event for detials and to book");
@@ -169,43 +167,55 @@ public class EventGUI extends javax.swing.JFrame {
 
         cardPanel.add(eventsPanel, "card2");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        bookedEventsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Date", "Time", "Location"
+                "ID", "Name", "Date", "Time", "Location"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
-            jTable3.getColumnModel().getColumn(1).setResizable(false);
-            jTable3.getColumnModel().getColumn(2).setResizable(false);
-            jTable3.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane3.setViewportView(bookedEventsTable);
+        if (bookedEventsTable.getColumnModel().getColumnCount() > 0) {
+            bookedEventsTable.getColumnModel().getColumn(0).setResizable(false);
+            bookedEventsTable.getColumnModel().getColumn(0).setPreferredWidth(5);
+            bookedEventsTable.getColumnModel().getColumn(1).setResizable(false);
+            bookedEventsTable.getColumnModel().getColumn(2).setResizable(false);
+            bookedEventsTable.getColumnModel().getColumn(3).setResizable(false);
+            bookedEventsTable.getColumnModel().getColumn(4).setResizable(false);
         }
+
+        bookedTeventTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        bookedTeventTitle.setText("These are your Booked Events");
 
         javax.swing.GroupLayout bookingsPanelLayout = new javax.swing.GroupLayout(bookingsPanel);
         bookingsPanel.setLayout(bookingsPanelLayout);
         bookingsPanelLayout.setHorizontalGroup(
             bookingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bookingsPanelLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bookingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bookingsPanelLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bookingsPanelLayout.createSequentialGroup()
+                        .addGap(292, 292, 292)
+                        .addComponent(bookedTeventTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         bookingsPanelLayout.setVerticalGroup(
             bookingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingsPanelLayout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addComponent(bookedTeventTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(89, 89, 89))
         );
@@ -234,14 +244,20 @@ public class EventGUI extends javax.swing.JFrame {
     public static void setEventList(ArrayList<eventticketing.Models.Event> elist) {
         eventList = elist;
     }
-
+    /*
+    This function switches between the different panels in the main GUI, from 
+    the Events page to the Booked Events page.
+    */
     public void switchPanels(JPanel panel) {
         cardPanel.removeAll();
         cardPanel.add(panel);
         cardPanel.repaint();
         cardPanel.revalidate();
     }
-
+    /*
+    This function is used to search in the JTable of events to make it easier
+    to search for different events.
+    */
     public void filterSearch(String filtering) {
         eTable = (DefaultTableModel) eventTable.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<DefaultTableModel>(eTable);
@@ -253,6 +269,10 @@ public class EventGUI extends javax.swing.JFrame {
     public JTable getEventTable() {
         return eventTable;
     }
+    
+    public JTable getBookedEventTable(){
+        return bookedEventsTable;
+    }
 
     private void eventsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventsButtonActionPerformed
         switchPanels(eventsPanel);
@@ -260,6 +280,8 @@ public class EventGUI extends javax.swing.JFrame {
 
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
         switchPanels(bookingsPanel);
+        ResultSet rs1 = DBOperations.bookedEventsData();
+        setBooked(rs1);
     }//GEN-LAST:event_bookingsButtonActionPerformed
 
     private void filterTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterTableKeyReleased
@@ -269,8 +291,8 @@ public class EventGUI extends javax.swing.JFrame {
 
     private void eventTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventTableMouseClicked
         int row = eventTable.getSelectedRow();
-        String name = eventTable.getValueAt(row, 0).toString();
-        Event event = getEventByName(name);
+        int id = Integer.parseInt(eventTable.getValueAt(row, 0).toString());
+        Event event = getEventById(id);
         DetailEventFrame detailFrame = new DetailEventFrame(event);
         detailFrame.writeDetails();
         detailFrame.setVisible(true);
@@ -282,15 +304,38 @@ public class EventGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_eventTableMouseClicked
     
-    private Event getEventByName(String name){
+    private Event getEventById(int id){
         for (Event event: eventList){
-            if (name == event.getName()){
+            if (id == event.getId()){
                 return event;                
             }
         }
         return null;
     }
     
+    private void setBooked(ResultSet rs){
+        DefaultTableModel tableModel = (DefaultTableModel) bookedEventsTable.getModel();
+        tableModel.setRowCount(0);
+        try {
+            while (rs.next()){
+                int id = rs.getInt("ID");
+                //String type = rs.getString("Type");
+                String name = rs.getString("Name");
+                Date date = rs.getDate("Date");
+                Time time = rs.getTime("Time");
+                String location = rs.getString("Location");
+                //String description = rs.getString("Description");
+                Object[] row = {id, name, date, time, location};
+                tableModel.addRow(row);
+                bookedEventsTable.setModel(tableModel);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error Main: " + ex);
+            ex.printStackTrace();
+
+        }
+    }
 //    public static EventGUI getInstance() {
 ////        if(eventGUI == null){
 ////            eventGUI = new EventGUI();
@@ -340,6 +385,8 @@ public class EventGUI extends javax.swing.JFrame {
 //    private static EventGUI eventGUI;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable bookedEventsTable;
+    private javax.swing.JLabel bookedTeventTitle;
     private javax.swing.JButton bookingsButton;
     private javax.swing.JPanel bookingsPanel;
     private javax.swing.JPanel cardPanel;
@@ -354,6 +401,5 @@ public class EventGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

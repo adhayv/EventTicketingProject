@@ -2,7 +2,6 @@
 package eventticketing.Models;
 
 //This makes enums for a function in the EventTicketing file as there is a function which requires it.
-
 import java.sql.Date;
 import java.sql.Time;
 
@@ -12,9 +11,9 @@ import java.sql.Time;
 //    TIME,
 //    TYPE
 //}
-
 public abstract class Event {
 
+    private int id;
     private String name;
     private Date date;
     private Time time;
@@ -24,6 +23,10 @@ public abstract class Event {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Date getDate() {
@@ -50,6 +53,10 @@ public abstract class Event {
         this.name = name;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -69,23 +76,20 @@ public abstract class Event {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-   
-    
-//Default constructor   
-    /*public Event() {
-    }*/
 
-//Constructor with parameters
-/*    public Event(String name, String date, String time, String type) {
-        this.name = name;
-       this.date = date;
-       this.time = time;
-       this.type = type;
-    }*/
-//This function overwrites the toString() function specifically for the Event object which needs to be printed out.
     public String toString() {
         return name + ", " + date + ", " + time + "";
+    }
+
+    public void addDetails(int id, String name, Date date, Time time, String location, String description, String type){
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.time = time;
+        this.location = location;
+        this.description = description;
+        this.type = type;                
+
     }
 
 }

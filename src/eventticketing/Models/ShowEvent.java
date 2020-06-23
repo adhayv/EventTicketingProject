@@ -38,12 +38,14 @@ public class ShowEvent extends Event {
     
     
 
-    public ShowEvent(String name, Date date, Time time, String location, String description, String performer, String genre){
+    public ShowEvent(int id, String name, Date date, Time time, String location, String description, String type, String performer, String genre){
+        super.setId(id);
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
+        super.setType(type);
         this.performer = performer;
         this.genre = genre;
     }

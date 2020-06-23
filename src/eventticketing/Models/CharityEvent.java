@@ -38,12 +38,14 @@ public class CharityEvent extends Event {
 
     }
 
-    public CharityEvent(String name, Date date, Time time, String location, String description, String organisation, String cause) {
+    public CharityEvent(int id, String name, Date date, Time time, String location, String description, String type, String organisation, String cause) {
+        super.setId(id);
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
+        super.setType(type);
         this.organisation = organisation;
         this.cause = cause;
     }

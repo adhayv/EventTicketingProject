@@ -28,12 +28,14 @@ public class FoodEvent extends Event {
 
     }
 
-    public FoodEvent(String name, Date date, Time time, String location, String description, String cuisine) {
+    public FoodEvent(int id, String name, Date date, Time time, String location, String description, String type, String cuisine) {
+        super.setId(id);
         super.setName(name);
         super.setDate(date);
         super.setTime(time);
         super.setLocation(location);
         super.setDescription(description);
+        super.setType(type);
         this.cuisine = cuisine;
     }
 
