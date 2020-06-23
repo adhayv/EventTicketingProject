@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+EventFactory implments the factory design for creating the Event objects.
+This is used to know what type of event should be created.
  */
 package eventticketing;
 

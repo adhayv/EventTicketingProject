@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+FoodEvent is a sublcass of the abstract Event class.
  */
 package eventticketing.Models;
 

@@ -1,16 +1,12 @@
-//This file creates the Event object.
+/*
+Event is as abstract class that has subclasses of the different types of events.
+*/
+
 package eventticketing.Models;
 
-//This makes enums for a function in the EventTicketing file as there is a function which requires it.
 import java.sql.Date;
 import java.sql.Time;
 
-//enum Option {
-//    NAME,
-//    DATE,
-//    TIME,
-//    TYPE
-//}
 public abstract class Event {
 
     private int id;
@@ -80,15 +76,18 @@ public abstract class Event {
     public String toString() {
         return name + ", " + date + ", " + time + "";
     }
-
-    public void addDetails(int id, String name, Date date, Time time, String location, String description, String type){
+    
+    /*
+    This function is used for the factory design.
+    */
+    public void addDetails(int id, String name, Date date, Time time, String location, String description, String type) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.time = time;
         this.location = location;
         this.description = description;
-        this.type = type;                
+        this.type = type;
 
     }
 

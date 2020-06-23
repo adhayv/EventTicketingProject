@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+DetailEventFrame is created when the user clicks on an event in the Event Jtable.
+It then displays all the information of the table and allows the user to book
+the event if it hasnt been already booked.
  */
 package eventticketing.GUI;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DetailEventFrame extends javax.swing.JFrame {
 
     Event bookingEvent;
-    
+
     /**
      * Creates new form DetailEventFrame
      */
@@ -24,18 +24,16 @@ public class DetailEventFrame extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
-    
-    
-    public DetailEventFrame(Event event){
+
+    public DetailEventFrame(Event event) {
         initComponents();
-        bookingEvent = event;     
+        bookingEvent = event;
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
-    public void writeDetails(){
-        eventDetailText.setText(bookingEvent.toString());        
-    }    
+
+    public void writeDetails() {
+        eventDetailText.setText(bookingEvent.toString());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,7 +138,6 @@ public class DetailEventFrame extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eventBookButton;

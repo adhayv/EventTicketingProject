@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+DBManager file is responsible for getting the connection to the databaste and 
+also used to interact with the data using the ResultSets and calling the
+myQuery or myUpdate on it.
  */
 package eventticketing;
 
@@ -26,24 +26,24 @@ public final class DBManager {
 
     Connection conn;
     static DBManager dbmanager;
-    
+
     private DBManager() {
         establishConnection();
     }
 
-    public static void makeConnection(){
-       DBManager dbManager = new DBManager();
+    public static void makeConnection() {
+        DBManager dbManager = new DBManager();
 //     System.out.println(dbManager.getConnection());
-        
+
     }
-    
-    public static DBManager getInstance(){
-        if(dbmanager == null){
+
+    public static DBManager getInstance() {
+        if (dbmanager == null) {
             dbmanager = new DBManager();
         }
         return dbmanager;
     }
-    
+
     public Connection getConnection() {
         return this.conn;
     }

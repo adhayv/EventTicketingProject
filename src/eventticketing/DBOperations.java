@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+This file takes care of functions that require the database. This being either
+getting data or putting data in the database. 
  */
 package eventticketing;
 
@@ -19,6 +18,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DBOperations {
 
+    /*
+    addToDB takes the event that the user wants to books and inserts it into the
+    BookedEvents database. The user is notifed when the event is booked and if
+    the event already exists within the database the user is notified that the 
+    event has already been booked.
+     */
     public static void addToDB(Event event) {
         DBManager dbManager = DBManager.getInstance();
         int id = event.getId();
@@ -29,7 +34,6 @@ public class DBOperations {
         String description = event.getDescription();
         String type = event.getType();
         ResultSet rs = dbManager.myQuery("select * from BOOKEDEVENTS where ID = " + id);
-        //try{System.out.println(rs.);} catch(Exception ex){System.out.println(ex);}
 
         try {
             if (rs.next()) {
@@ -48,27 +52,14 @@ public class DBOperations {
 
     }
 
+    /*
+    bookedEventData function returns the resultset of the BOOKEDEVENTS. This is
+    used to set up the booked events jtable.
+     */
     public static ResultSet bookedEventsData() {
         DBManager dbManager = DBManager.getInstance();
         ResultSet rs = dbManager.myQuery("select * from BOOKEDEVENTS");
         return rs;
-//        DefaultTableModel tableModel = (DefaultTableModel) eventGUI.getEventTable().getModel();
-//        try {
-//            while (rs.next()){
-//                int id = rs.getInt("ID");
-//                String type = rs.getString("Type");
-//                String name = rs.getString("Name");
-//                Date date = rs.getDate("Date");
-//                Time time = rs.getTime("Time");
-//                String location = rs.getString("Location");
-//                String description = rs.getString("Description");
-//                
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.out.println("Error Main: " + ex);
-//            ex.printStackTrace();
-//
-//        }
+
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file runs the main GUI. This is where all the main functions of the GUI
-are.
+are. This runs the Event and Booked events tabs and sets up the jtables.
  */
 package eventticketing.GUI;
 
@@ -244,20 +244,22 @@ public class EventGUI extends javax.swing.JFrame {
     public static void setEventList(ArrayList<eventticketing.Models.Event> elist) {
         eventList = elist;
     }
+
     /*
     This function switches between the different panels in the main GUI, from 
     the Events page to the Booked Events page.
-    */
+     */
     public void switchPanels(JPanel panel) {
         cardPanel.removeAll();
         cardPanel.add(panel);
         cardPanel.repaint();
         cardPanel.revalidate();
     }
+
     /*
     This function is used to search in the JTable of events to make it easier
     to search for different events.
-    */
+     */
     public void filterSearch(String filtering) {
         eTable = (DefaultTableModel) eventTable.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<DefaultTableModel>(eTable);
@@ -269,8 +271,8 @@ public class EventGUI extends javax.swing.JFrame {
     public JTable getEventTable() {
         return eventTable;
     }
-    
-    public JTable getBookedEventTable(){
+
+    public JTable getBookedEventTable() {
         return bookedEventsTable;
     }
 
@@ -283,12 +285,18 @@ public class EventGUI extends javax.swing.JFrame {
         ResultSet rs1 = DBOperations.bookedEventsData();
         setBooked(rs1);
     }//GEN-LAST:event_bookingsButtonActionPerformed
-
+    /*
+    When the user types in this field, their text is searched in the JTable
+     */
     private void filterTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterTableKeyReleased
         String filtering = filterTable.getText();
         filterSearch(filtering);
     }//GEN-LAST:event_filterTableKeyReleased
-
+    /*
+    When the user clicks on the table table the ID is taken from the row
+    and is searched for the in the event array which then opents the "DetailFrame".
+    This then displays extra data for each event.
+     */
     private void eventTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventTableMouseClicked
         int row = eventTable.getSelectedRow();
         int id = Integer.parseInt(eventTable.getValueAt(row, 0).toString());
@@ -301,23 +309,28 @@ public class EventGUI extends javax.swing.JFrame {
 //        String location = eventTable.getValueAt(row, 3).toString();
         //DetailEventFrame detailFrame = new DetailEventFrame(name);
         //detailFrame.setVisible(true);
-        
+
     }//GEN-LAST:event_eventTableMouseClicked
-    
-    private Event getEventById(int id){
-        for (Event event: eventList){
-            if (id == event.getId()){
-                return event;                
+
+    private Event getEventById(int id) {
+        for (Event event : eventList) {
+            if (id == event.getId()) {
+                return event;
             }
         }
         return null;
     }
-    
-    private void setBooked(ResultSet rs){
+
+    /*
+    This sets up the booked events jtable with the data that is in the bookedevents
+    database. Each time the tab is changed back to the events tab the data is reset
+    in the Jtable as to not keep adding in data.
+     */
+    private void setBooked(ResultSet rs) {
         DefaultTableModel tableModel = (DefaultTableModel) bookedEventsTable.getModel();
         tableModel.setRowCount(0);
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("ID");
                 //String type = rs.getString("Type");
                 String name = rs.getString("Name");
@@ -343,6 +356,7 @@ public class EventGUI extends javax.swing.JFrame {
 ////        } 
 //        return eventGUI;
     //}
+
     /**
      * @param args the command line arguments
      */

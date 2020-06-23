@@ -1,8 +1,14 @@
 /*
 This is the main file for the program.
-This program shows the current events around Auckland and prints them out from a csv file.
-Then the user can pick a way to search for an event from the list using different options.
-Once searched the user can book an event, this creates a txt file which is the booking confirmation.
+The program simulates a single persons account of a ticket booking application.
+The program starts up showing the current event with a few details.
+When an event is clicked extra data is shown and then the event can be booked
+if the user wants.
+Once its booked it is added to a table and the user can check the booked events
+from the booked tabe in the main GUI.
+This runs the program. It first creates the connection to the database
+and then makes the EventGui visibile while it is set up in the background.
+
 
  */
 package eventticketing;
@@ -74,6 +80,13 @@ public class EventTicketing {
         EventGUI eventGui = new EventGUI();
         eventGui.setVisible(true);
         
+        /*
+        This function takes in data from the events table in the database and
+        creates the corresponding objects for them which are then used to create
+        the event jtable in the EventGui.
+        This arraylist is also used to show the extra details of each event when
+        the event is clicked in the Jtable.
+        */
         ArrayList<Event> eventList = new ArrayList<Event>();
         ResultSet rs = dbManager.myQuery("select * from EVENTS");
         try {
