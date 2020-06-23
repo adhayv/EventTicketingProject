@@ -20,6 +20,7 @@ import eventticketing.Models.FoodEvent;
 import eventticketing.Models.ShowEvent;
 import eventticketing.Models.MusicEvent;
 import eventticketing.GUI.EventGUI;
+ 
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,30 +66,16 @@ public class EventTicketing {
 //                case TYPE:
 //                    if (event.type.equals(inputValue)) {
 //                        filterList.add(event);
-//                    }
-//                    break;
-//            }
-//
-//        }
-//        return filterList;
-//    }
-    
-    
-    public static void main(String[] args) {
-
+    /*
+    This function takes in data from the events table in the database and
+    creates the corresponding objects for them which are then used to create
+    the event jtable in the EventGui.
+    This arraylist is also used to show the extra details of each event when
+    the event is clicked in the Jtable.
+    */
+    public static ArrayList<Event> createEventsArray(ResultSet rs){
         DBManager dbManager = DBManager.getInstance();
-        EventGUI eventGui = new EventGUI();
-        eventGui.setVisible(true);
-        
-        /*
-        This function takes in data from the events table in the database and
-        creates the corresponding objects for them which are then used to create
-        the event jtable in the EventGui.
-        This arraylist is also used to show the extra details of each event when
-        the event is clicked in the Jtable.
-        */
         ArrayList<Event> eventList = new ArrayList<Event>();
-        ResultSet rs = dbManager.myQuery("select * from EVENTS");
         try {
             while (rs.next()) {
                 int id = rs.getInt("ID");
@@ -122,7 +109,7 @@ public class EventTicketing {
                         rs3.next();
                         String cuisine = rs3.getString("Cuisine");
                         ((FoodEvent) event).setCuisine(cuisine);
-                        
+
                         break;
                     case "Charity":
                         ResultSet rs4 = dbManager.myQuery("select * from CHARITYEVENTS where ID = " + id);
@@ -139,24 +126,82 @@ public class EventTicketing {
             System.out.println("Error Main: " + ex);
             ex.printStackTrace();
         }
-                        
+        
+        return eventList;
+    }
+
+    public static void main(String[] args) {
+
+        DBManager dbManager = DBManager.getInstance();
+        ArrayList<Event> eventList = createEventsArray(DBOperations.eventsData());
         EventGUI.setEventList(eventList);
+        EventGUI eventGui = new EventGUI();
+        eventGui.setEventsTable();
+        eventGui.setVisible(true);
         
-        DefaultTableModel tableModel = (DefaultTableModel) eventGui.getEventTable().getModel();
-        for (Event event : eventList) {
-            Object[] row = {event.getId(), event.getName(), event.getDate(), event.getTime(), event.getLocation()};
-            tableModel.addRow(row);
-            
-        }
-        
-        
-        
-        
-        
+//        ResultSet rs = dbManager.myQuery("select * from EVENTS");
+//        try {
+//            while (rs.next()) {
+//                int id = rs.getInt("ID");
+//                String type = rs.getString("Type");
+//                String name = rs.getString("Name");
+//                Date date = rs.getDate("Date");
+//                Time time = rs.getTime("Time");
+//                String location = rs.getString("Location");
+//                String description = rs.getString("Description");
+//                Event event = EventFactory.getEvent(type);
+//                event.addDetails(id, name, date, time, location, description, type);
+//                switch (type) {
+//                    case "Music":
+//                        ResultSet rs1 = dbManager.myQuery("select * from MUSICEVENTS where ID = " + id);
+//                        rs1.next();
+//                        String artist = rs1.getString("Artist");
+//                        String musicgenre = rs1.getString("Genre");
+//                        ((MusicEvent) event).setArtist(artist);
+//                        ((MusicEvent) event).setGenre(musicgenre);
+//                        break;
+//                    case "Show":
+//                        ResultSet rs2 = dbManager.myQuery("select * from SHOWEVENTS where ID = " + id);
+//                        rs2.next();
+//                        String performer = rs2.getString("Performer");
+//                        String showgenre = rs2.getString("Genre");
+//                        ((ShowEvent) event).setPerformer(performer);
+//                        ((ShowEvent) event).setGenre(showgenre);
+//                        break;
+//                    case "Food":
+//                        ResultSet rs3 = dbManager.myQuery("select * from FOODEVENTS where ID = " + id);
+//                        rs3.next();
+//                        String cuisine = rs3.getString("Cuisine");
+//                        ((FoodEvent) event).setCuisine(cuisine);
+//
+//                        break;
+//                    case "Charity":
+//                        ResultSet rs4 = dbManager.myQuery("select * from CHARITYEVENTS where ID = " + id);
+//                        rs4.next();
+//                        String organisation = rs4.getString("Organisation");
+//                        String cause = rs4.getString("Cause");
+//                        ((CharityEvent) event).setOrganisation(organisation);
+//                        ((CharityEvent) event).setCause(cause);
+//                        break;
+//                }
+//                eventList.add(event);
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println("Error Main: " + ex);
+//            ex.printStackTrace();
+//        }
+
         
 
+//        DefaultTableModel tableModel = (DefaultTableModel) eventGui.getEventTable().getModel();
+//        for (Event event : eventList) {
+//            Object[] row = {event.getId(), event.getName(), event.getDate(), event.getTime(), event.getLocation()};
+//            tableModel.addRow(row);
+//
+//        }
+
 //        EventGUI.getInstance().getEventListPanel().add(eventtable);
-    //JTable table = eventGui.getEventListPanel();
+        //JTable table = eventGui.getEventListPanel();
 //        /*
 //        The while loops keeps the program running until the user wants to end it.
 //        The first block of code in the while loop reads the event file and prints
@@ -347,6 +392,6 @@ public class EventTicketing {
 //            }
 //
 //        }
-}
+    }
 
 }

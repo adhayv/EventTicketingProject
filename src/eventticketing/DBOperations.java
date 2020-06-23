@@ -62,4 +62,10 @@ public class DBOperations {
         return rs;
 
     }
+    
+    public static ResultSet eventsData(){
+        DBManager dbManager = DBManager.getInstance();
+        ResultSet rs = dbManager.myQuery("select * from EVENTS");
+        return rs;
+    }
 }
