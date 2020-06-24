@@ -1,5 +1,6 @@
 /*
 ShowEvent is a sublcass of the abstract Event class.
+This is created as a Show Event which falls under Event.
  */
 package eventticketing.Models;
 
@@ -56,9 +57,8 @@ public class ShowEvent extends Event {
         super.setDescription(description);
     }
     public String toString() {
-        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime() 
-                + "\nLocation: " + getLocation() + "\nPerformer: " + performer + "\nGenre: " + genre + "\nDescirption: " + getDescription());
-        return details;
+        String details = (performer + "\nGenre: " + genre);
+        return super.toString() + details;
     }
     
 }

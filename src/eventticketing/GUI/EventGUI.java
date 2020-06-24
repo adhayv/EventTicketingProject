@@ -23,16 +23,57 @@ public class EventGUI extends javax.swing.JFrame {
     /**
      * Creates new form EventGUI
      */
+    static EventGUI eventGui;
     private static ArrayList<Event> eventList = new ArrayList<Event>();
     CardLayout cardLayout;
     DefaultTableModel eTable;
 
-    public EventGUI() {
+    private EventGUI() {
         initComponents();
         cardLayout = (CardLayout) (cardPanel.getLayout());
     }
 
-    //public DetailEventFrame detailFrame;
+    /*
+    This function creates a singleton for the EventGUI. As only 1 is needed.
+     */
+    public static EventGUI getInstance() {
+        if (eventGui == null) {
+            eventGui = new EventGUI();
+        }
+        return eventGui;
+    }
+
+    /*
+    This creates the rows for the jtable according to the events arraylist.
+     */
+    public void setEventsTable() {
+        DefaultTableModel tableModel = (DefaultTableModel) eventTable.getModel();
+        for (Event event : eventList) {
+            Object[] row = {event.getId(), event.getName(), event.getDate(), event.getTime(), event.getLocation()};
+            tableModel.addRow(row);
+        }
+
+    }
+
+    /*
+    getEventById searches for the event needed by ID within the events arraylist.
+     */
+    private Event getEventById(int id) {
+        for (Event event : eventList) {
+            if (id == event.getId()) {
+                return event;
+            }
+        }
+        return null;
+    }
+
+    /*
+    This allows the eventlist to be used in this file.
+     */
+    public static void setEventList(ArrayList<eventticketing.Models.Event> elist) {
+        eventList = elist;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,7 +171,7 @@ public class EventGUI extends javax.swing.JFrame {
         }
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        jLabel3.setText("Click on an event for detials and to book");
+        jLabel3.setText("Click on an event for details/booking.");
 
         javax.swing.GroupLayout eventsPanelLayout = new javax.swing.GroupLayout(eventsPanel);
         eventsPanel.setLayout(eventsPanelLayout);
@@ -206,8 +247,8 @@ public class EventGUI extends javax.swing.JFrame {
                         .addGap(78, 78, 78)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bookingsPanelLayout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(bookedTeventTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(247, 247, 247)
+                        .addComponent(bookedTeventTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         bookingsPanelLayout.setVerticalGroup(
@@ -240,10 +281,6 @@ public class EventGUI extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    public static void setEventList(ArrayList<eventticketing.Models.Event> elist) {
-        eventList = elist;
-    }
 
     /*
     This function switches between the different panels in the main GUI, from 
@@ -304,22 +341,8 @@ public class EventGUI extends javax.swing.JFrame {
         DetailEventFrame detailFrame = new DetailEventFrame(event);
         detailFrame.writeDetails();
         detailFrame.setVisible(true);
-//        String date = eventTable.getValueAt(row, 1).toString();
-//        String time = eventTable.getValueAt(row, 2).toString();
-//        String location = eventTable.getValueAt(row, 3).toString();
-        //DetailEventFrame detailFrame = new DetailEventFrame(name);
-        //detailFrame.setVisible(true);
 
     }//GEN-LAST:event_eventTableMouseClicked
-
-    private Event getEventById(int id) {
-        for (Event event : eventList) {
-            if (id == event.getId()) {
-                return event;
-            }
-        }
-        return null;
-    }
 
     /*
     This sets up the booked events jtable with the data that is in the bookedevents
@@ -332,12 +355,10 @@ public class EventGUI extends javax.swing.JFrame {
         try {
             while (rs.next()) {
                 int id = rs.getInt("ID");
-                //String type = rs.getString("Type");
                 String name = rs.getString("Name");
                 Date date = rs.getDate("Date");
                 Time time = rs.getTime("Time");
                 String location = rs.getString("Location");
-                //String description = rs.getString("Description");
                 Object[] row = {id, name, date, time, location};
                 tableModel.addRow(row);
                 bookedEventsTable.setModel(tableModel);
@@ -349,60 +370,7 @@ public class EventGUI extends javax.swing.JFrame {
 
         }
     }
-    
-    public void setEventsTable(){
-        DefaultTableModel tableModel = (DefaultTableModel) eventTable.getModel();
-        for (Event event : eventList) {
-            Object[] row = {event.getId(), event.getName(), event.getDate(), event.getTime(), event.getLocation()};
-            tableModel.addRow(row);
-    }
-//    public static EventGUI getInstance() {
-////        if(eventGUI == null){
-////            eventGUI = new EventGUI();
-////            eventGUI.setVisible(true);
-////        } 
-//        return eventGUI;
-    //}
 
-    /**
-     * @param args the command line arguments
-     */
-   //public static void runGUI() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(EventGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(EventGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(EventGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(EventGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-        //</editor-fold>
-
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                eventGUI = new EventGUI();
-//                eventGUI.setVisible(true);
-//                new EventGUI().setVisible(true);
-//            }
-//        }
-//        );
-//        eventGUI = new EventGUI();
-//        eventGUI.setVisible(true);
-    }
 //    private static EventGUI eventGUI;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

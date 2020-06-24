@@ -238,7 +238,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Narrow" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Click on an event for detials and to book"/>
+                    <Property name="text" type="java.lang.String" value="Click on an event for details/booking."/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -260,8 +260,8 @@
                                   <Component id="jScrollPane3" min="-2" pref="776" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="292" max="-2" attributes="0"/>
-                                  <Component id="bookedTeventTitle" min="-2" pref="305" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
+                                  <Component id="bookedTeventTitle" min="-2" pref="372" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="72" max="32767" attributes="0"/>

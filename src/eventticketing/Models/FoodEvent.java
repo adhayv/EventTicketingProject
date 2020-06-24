@@ -1,5 +1,6 @@
 /*
 FoodEvent is a sublcass of the abstract Event class.
+This is created as a Food Event which falls under Event.
  */
 package eventticketing.Models;
 
@@ -47,8 +48,7 @@ public class FoodEvent extends Event {
     }
 
     public String toString() {
-        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime()
-                + "\nLocation: " + getLocation() + "\nCuisine: " + cuisine + "\nDescirption: " + getDescription());
-        return details;
+        String details = ("\nCuisine: " + cuisine);
+        return super.toString() + details;
     }
 }

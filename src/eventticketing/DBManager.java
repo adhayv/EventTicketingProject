@@ -10,8 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -33,7 +32,6 @@ public final class DBManager {
 
     public static void makeConnection() {
         DBManager dbManager = new DBManager();
-//     System.out.println(dbManager.getConnection());
 
     }
 

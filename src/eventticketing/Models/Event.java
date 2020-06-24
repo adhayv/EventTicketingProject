@@ -74,7 +74,9 @@ public abstract class Event {
     }
 
     public String toString() {
-        return name + ", " + date + ", " + time + "";
+        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime()
+                + "\nLocation: " + getLocation() + "\nDescirption: " + getDescription());
+        return details;
     }
     
     /*

@@ -1,5 +1,6 @@
 /*
 MusicEvent is a sublcass of the abstract Event class.
+This is created as a Music Event which falls under Event.
  */
 package eventticketing.Models;
 
@@ -56,8 +57,7 @@ public class MusicEvent extends Event {
     }
 
     public String toString() {
-        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime()
-                + "\nLocation: " + getLocation() + "\nArtist: " + artist + "\nGenre: " + genre + "\nDescirption: " + getDescription());
-        return details;
+        String details = ( "\nArtist: " + artist + "\nGenre: " + genre);
+        return super.toString() + details;
     }
 }

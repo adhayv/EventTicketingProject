@@ -1,9 +1,9 @@
 /*
 CharityEvent is a sublcass of the abstract Event class.
+This is created as a Charity Event which falls under Event.
  */
 package eventticketing.Models;
 
-import eventticketing.Models.Event;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -57,8 +57,7 @@ public class CharityEvent extends Event {
     }
 
     public String toString() {
-        String details = ("Name: " + getName() + "\nDate: " + getDate() + "\nTime: " + getTime()
-                + "\nLocation: " + getLocation() + "\nOrganisation: " + organisation + "\nCause: " + cause + "\nDescirption: " + getDescription());
-        return details;
+        String details = ("\nOrganisation: " + organisation + "\nCause: " + cause);
+        return super.toString() + details;
     }
 }

@@ -9,8 +9,7 @@ import eventticketing.GUI.*;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.sql.Date;
-import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
